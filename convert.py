@@ -15,10 +15,11 @@ with safetensors.safe_open(input_path, framework="pt", device="cpu") as f:
     for key in f.keys():
         tensor = f.get_tensor(key)
         if tensor.dtype == torch.bfloat16:
+            print(key)
             tensors[key] = tensor.to(torch.float16)
         else:
             tensors[key] = tensor
 
 safetensors.torch.save_file(tensors, output_path)
 
-print("Done")
+print("\nDone")
